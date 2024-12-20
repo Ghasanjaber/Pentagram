@@ -5,10 +5,11 @@ import { useState } from "react";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [imageUrl,setImageUrl]=useState<String |null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log("page ee ")
 
     try {
       const response = await fetch("/api/generate-image", {
@@ -17,9 +18,25 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ text: inputText }),
+        
       });
 
       const data = await response.json();
+      console.log("page ee ")
+
+      if (!data.success) {
+        throw new Error(data.error || "Failed to generate image");
+      }
+      
+      if (data.imageUrl) {
+        const img = new Image();
+        img.onload = () => {
+          setImageUrl(data.imageUrl);
+        };
+        img.src = data.imageUrl;
+      }
+      
+
       console.log(data);
       setInputText("");
     } catch (error) {
@@ -43,7 +60,7 @@ export default function Home() {
               value={inputText}
               onChange={e => setInputText(e.target.value)}
               className="flex-1 p-3 rounded-lg bg-black/[.05] dark:bg-white/[.06] border border-black/[.08] dark:border-white/[.145] focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
-              placeholder="Describe the image you want to generate..."
+              placeholder="Describe the image you want to generate...1d"
               disabled={isLoading}
             />
             <button
@@ -58,4 +75,4 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
