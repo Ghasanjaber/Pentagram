@@ -33,20 +33,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const imageBuffer = await response.arrayBuffer();
-    
-    const filename = `${crypto.randomUUID()}.jpg`;
-    console.log(filename)
 
-    
-    const blob = await put(filename, imageBuffer, {
-      access: "public",
-      contentType: "image/jpeg",
-    });
-    
     return NextResponse.json({
       success: true,
-      imageUrl:blob.url,
+      imageUrl:response.url
     });
     
 
