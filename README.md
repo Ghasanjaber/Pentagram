@@ -16,5 +16,14 @@ Pentagram is an Instagram-like platform where users generate images using text p
 🎯 Personalized Recommendation System – Suggests images based on user preferences and interactions.
 
 🌐 Responsive Web UI – Built with Next.js/React, ensuring a seamless and modern user experience.
+🛠️ How It Works
+
+User enters a text prompt – The system processes it through Stable Diffusion.
+
+Image is generated dynamically – Using cloud-based GPUs for fast rendering.
+
+Image is stored & indexed – For semantic search and recommendations.
+
+Users can interact – Liking, sharing, and discovering AI-generated images.
 
 
